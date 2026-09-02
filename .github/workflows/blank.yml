@@ -1,0 +1,31 @@
+name: Compilar y guardar PDF
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Descargar el repositorio
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Compilar el archivo LaTeX
+      - name: Compilar LaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: cap3.tex
+
+      # Guardar el PDF generado en el repositorio
+      - name: Commit PDF
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Actualizar PDF generado automáticamente"
+          file_pattern: "*.pdf"
