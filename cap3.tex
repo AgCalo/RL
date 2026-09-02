@@ -1,3 +1,67 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\geometry{margin=2.5cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist{itemsep=0.25em,topsep=0.3em}
+\renewcommand{\arraystretch}{1.25}
+\setcounter{secnumdepth}{0}
+
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\concepto}[1]{%
+  \begin{center}
+    \fcolorbox{black}{gray!8}{\parbox{0.88\linewidth}{\centering #1}}
+  \end{center}%
+}
+
+\begin{document}
+
+{\LARGE\bfseries Finite Markov Decision Processes\par}
+{\large Resumen del tercer capítulo de \textit{Reinforcement Learning: An Introduction}, de
+Richard S. Sutton y Andrew G. Barto.\par}
+\vspace{0.7em}
+{\normalsize\bfseries INTRODUCCIÓN TEÓRICO-PRÁCTICA AL APRENDIZAJE POR REFUERZO\par}
+\vspace{0.35em}
+\textbf{Profesor:} Matias Bilkis
+\hfill
+\textbf{Cuatrimestre:} Segundo cuatrimestre 2026
+
+\vspace{0.25em}
+\textbf{Integrantes}
+
+\begin{tabularx}{\textwidth}{@{}X@{\hspace{2em}}X@{}}
+Agustín Calo \hfill 390/23 & Paz Lavenia \hfill 64/23 \\
+Rocco Gasparini \hfill 102/24 & Silvano Picard \hfill 637/24 \\
+Maria Delfina Kiss \hfill 72/23 & Ingrid von Foerster \hfill 150/23
+\end{tabularx}
+
+\vspace{0.35em}
+\hrule
+
+
+\section{Idea de RL}
 La diciplina del Reinforcement Learning busca que el agente aprenda de interacciónes con el ambiente ($\textit{environment}$). Especificar completamente a este último define a una tarea en sí misma.
 La política del agente es un mapeo de estados a probabilidades de tomar cada posible acción en $\mathcal{A}(S_t) \rightarrow \pi(a|s)$, que es la probabilidad de tomar la acción a si estoy en el estado s en el paso t.
-Los métodos de RL 
+Los métodos de RL especifican  como el agente cambia de política como resultado de la experiencia. El agente en sí representa la cognición que toma decisiones, no como hace para percibir el ambiente (por ejemplo, los sensores con los que percibe alteraciones forman parte del mismo $\textit{environment}$). Todo lo no modificable arbitrariamente por el agente es ajeno a él y, por lo tante, porte del ambiente. La frontera entre ambos representa el límite del control absoluto del agente, no de su conocimiento.
+
+Por otro lado, la señal recompensa y la maximización de su suma como objetivo es de las características más distintivas de RL. Es crítico que las recompensas dadas refuercen el seguimiento de los objetivos del usuario. Por eso no hay que recompensar submetas, es decir, objetivos instrumentales pues puede terminar persiguiendolos a estos en vez de los finales. En síntesis, a diferencia de otros métodos, se comunica que se quiere lograr, no como hacerlo.
+Para que el agente pueda aprender de la recompensa, esta se situa fuera de su control para que tenga un control imperfecto sobre la misma y no pueda maximizarla simplemente alterando el número.
+\section{MDP}
+Por otro lado, el aprendizaje se puede estructurar en episodios (\textit{episodic task}) o en una larga tarea continua (\textit{continuing task}). En el caso de la primera, aunque se puede exteneder para la segunda, se espera que la señal de estado cumpla la propiedad de Markov, que es retener toda la información relevante. Formalmente $P(s',r|s,a)=P(R_{t+1},S_{t+1}|S_t,A_t)$ $ \forall r,s',A_t,S_t $. Esto es clave para que el estado sea una buena base para la predicción de futuras recompensas y para elegir acciones (no siempre se puede satisfacer la propiedad pero si aproximarse a ella). De esto se derivan la función de valor de estado y valor de estado-acción, pues son estimadas de la experiencia mediante procesos como Monte Carlo y satisfacen relaciones recursivas. 
+
+Bajo los supuestos de la propiedad de Markov, se dice que estamos en un Proceso de Decisión de Markov (MDP). Cuano son finitos (cantidad finita de episodios), la ecuación de eoptimalidad de Bellman tiene solución única independiente de la política. Luego, si se resuelve el sistema de ecuaciones inducido por los estados y se consigue la función de valor óptima ($v_*$) se pueden encontrar políticas óptimas al asignar probabilidades no cero a las acciones que maximizan la suma de los $v_*(s)$
+
+\end{document}
